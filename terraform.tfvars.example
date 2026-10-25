@@ -1,0 +1,4 @@
+yourname       = "yourname"
+location       = "eastus"
+admin_username = "labadmin"
+admin_password = "CHANGE-ME-use-a-strong-password"
