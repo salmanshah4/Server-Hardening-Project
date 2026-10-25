@@ -14,7 +14,6 @@ https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776
 
 **1. Define the hardening scope and lab objectives** [0:00](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=0)
 
-![image](https://loom.com/i/d1efa06aede646d88541c37a44740164?workflows_screenshot=true)
 
 - Harden server systems using a CIS baseline.
 - Scope the work to two virtual machines:
@@ -27,7 +26,6 @@ https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776
 
 **2. Deploy the virtual machines and prepare the infrastructure code** [0:10](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=10)
 
-![image](https://loom.com/i/264db8a35663427281a33b836c8e714b?workflows_screenshot=true)
 
 - Terraform deploys everything into `rg-lab-hardening-syed`:
   - Resource group, virtual network (`vnet-hardening-syed`) and subnet
@@ -50,7 +48,6 @@ terraform apply
 
 **3. Apply Linux hardening controls** [0:30](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=30)
 
-![image](https://loom.com/i/63da48d41b62486893560efb78051c80?workflows_screenshot=true)
 
 - The Linux VM is hardened on first boot through `custom_data`:
   - Disable unused filesystems (cramfs, freevxfs)
@@ -66,7 +63,6 @@ terraform apply
 
 **4. Verify Linux compliance settings** [1:33](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=93)
 
-![image](https://loom.com/i/a6cf07bd529a4208a726df493401fc1c?workflows_screenshot=true)
 
 ```bash
 systemctl status auditd                     # active (running)
@@ -83,7 +79,6 @@ grep minlen /etc/security/pwquality.conf    # minlen=14
 
 **5. Simulate configuration drift on Linux** [2:24](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=144)
 
-![image](https://loom.com/i/dee45a9f0a0443b8896989e9ba44cdc8?workflows_screenshot=true)
 
 - Deliberately break the SSH hardening control to simulate drift:
 
@@ -99,7 +94,6 @@ grep PermitRootLogin /etc/ssh/sshd_config   # PermitRootLogin yes (non-compliant
 
 **6. Apply Azure Policy and Guest Configuration for Linux compliance monitoring** [3:04](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=184)
 
-![image](https://loom.com/i/0147a3eb335842ae80d00d9cc39918e2?workflows_screenshot=true)
 
 - Guest Configuration can only audit inside the OS when two prerequisites are in place. The lab guide didn't mention either one:
   - A **system-assigned managed identity** on the VM
@@ -125,7 +119,6 @@ sudo systemctl restart ssh
 
 **7. Harden the Windows VM with security policies** [3:24](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=204)
 
-![image](https://loom.com/i/36bce4bb7acc439ca2e2bf653bb6a102?workflows_screenshot=true)
 
 RDP into the Windows VM and run PowerShell as Administrator:
 
@@ -157,7 +150,6 @@ Set-ItemProperty -Path $path -Name "NoDriveTypeAutoRun" -Value 255 -Type DWord
 
 **8. Validate Windows security policy enforcement** [4:10](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=250)
 
-![image](https://loom.com/i/08cd2feaa6a8457c9823f67fb45cc705?workflows_screenshot=true)
 
 ```powershell
 net accounts                                        # lockout and password policy
@@ -174,7 +166,6 @@ Get-ItemProperty -Path $path -Name NoDriveTypeAutoRun   # 255
 
 **9. Create a least-privilege Windows user** [4:40](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=280)
 
-![image](https://loom.com/i/c1b7f8bb38e04d86b32a464c677beceb?workflows_screenshot=true)
 
 - Create `appuser` with a password that meets the new policy. The password must not contain any part of the account's display name (see Troubleshooting).
 - Add it to the standard Users group only.
@@ -194,7 +185,6 @@ Get-LocalGroupMember -Group "Administrators"
 
 **10. Create a least-privilege Linux user** [5:35](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=335)
 
-![image](https://loom.com/i/6b4aee258f7f49819f4692636c253743?workflows_screenshot=true)
 
 - Create `appuser` and set a compliant password:
 
