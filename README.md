@@ -130,8 +130,6 @@ On first boot, the `custom_data` script disables cramfs and freevxfs, disables a
 
 ✅ **Result:** CIS 5.2.10 "Ensure that the SSH PermitRootLogin is configured" reports **NonCompliant** with `permitrootlogin` set to `yes`. The drift was detected.
 
-![04-cis-5.2.10-noncompliant](images/cis-5.2.10-permitrootlogin-noncompliant.png)
-
 ### Step 5: Remediate and Confirm Compliance
 
 1. Restore the control and tighten the config file's permissions:
@@ -143,8 +141,6 @@ On first boot, the `custom_data` script disables cramfs and freevxfs, disables a
 2. Rescan.
 
 ✅ **Result:** CIS 5.2.10 returns to **Compliant**.
-
-![05-cis-5.2.10-compliant](images/cis-5.2.10-permitrootlogin-compliant.png)
 
 ### Step 6: Harden Windows Server to CIS Level 1 · [3:24](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=204)
 
@@ -200,8 +196,6 @@ On first boot, the `custom_data` script disables cramfs and freevxfs, disables a
 
 ✅ **Result:** Only `labadmin` is in Administrators. `appuser` has standard-user rights only.
 
-![07-windows-appuser-not-admin](images/windows-appuser-not-in-administrators.png)
-
 ### Step 8: Create a Least-Privilege Linux User · [5:35](https://loom.com/share/9f78a8765dcb48ba85eff797bf80b776?t=335)
 
 1. Create the account:
@@ -210,8 +204,6 @@ On first boot, the `custom_data` script disables cramfs and freevxfs, disables a
    sudo passwd appuser
    ```
 2. The guide's sudoers rule lists `/usr/bin/systemctl status` with no argument wildcard, so it only matches the bare command. `sudo systemctl status ssh` was **denied**.
-
-![08a-sudoers-guide-rule-denied](images/linux-sudoers-guide-rule-denies-systemctl-status.png)
 
 3. Fix the rule. Adding `*` allows arguments, and `NOEXEC` blocks the `less` pager's `!sh` escape, which would otherwise give a root shell:
    ```bash
@@ -227,8 +219,6 @@ On first boot, the `custom_data` script disables cramfs and freevxfs, disables a
    ```
 
 ✅ **Result:** `systemctl status` works, and the "Failed to execute 'less'... Permission denied" message shows the pager escape is blocked. `apt-get install` is denied.
-
-![08b-sudoers-fixed](images/linux-sudoers-fixed-status-allowed-apt-denied.png)
 
 ## 🛠️ Troubleshooting
 
