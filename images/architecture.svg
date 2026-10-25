@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 700" width="1100" height="700" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B91C1C"/>
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6D28D9"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1100" height="700" fill="#FFFFFF"/>
+  <text x="550" y="45" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A">Server Hardening Lab: Azure Architecture</text>
+
+  <!-- Admin workstation -->
+  <rect x="30" y="115" width="200" height="100" rx="10" fill="#F1F5F9" stroke="#475569" stroke-width="1.5"/>
+  <text x="130" y="145" text-anchor="middle" font-size="15" font-weight="700" fill="#0F172A">Admin Workstation</text>
+  <text x="130" y="168" text-anchor="middle" font-size="12" fill="#334155">Terraform CLI · Azure CLI</text>
+  <text x="130" y="188" text-anchor="middle" font-size="12" fill="#334155">SSH (Linux) · RDP (Windows)</text>
+
+  <!-- Internet -->
+  <rect x="30" y="370" width="200" height="100" rx="10" fill="#FEF2F2" stroke="#B91C1C" stroke-width="1.5"/>
+  <text x="130" y="400" text-anchor="middle" font-size="15" font-weight="700" fill="#7F1D1D">Internet</text>
+  <text x="130" y="423" text-anchor="middle" font-size="12" fill="#7F1D1D">Live SSH brute-force</text>
+  <text x="130" y="443" text-anchor="middle" font-size="12" fill="#7F1D1D">attempts (root, admin)</text>
+
+  <!-- Subscription -->
+  <rect x="270" y="75" width="800" height="600" rx="12" fill="#F8FAFC" stroke="#0078D4" stroke-width="2"/>
+  <text x="290" y="100" font-size="14" font-weight="700" fill="#0078D4">Azure Subscription</text>
+
+  <!-- Resource group -->
+  <rect x="290" y="112" width="760" height="545" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="310" y="136" font-size="13" font-weight="700" fill="#1E3A8A">Resource Group: rg-lab-hardening-syed</text>
+
+  <!-- VNet -->
+  <rect x="310" y="150" width="500" height="490" rx="10" fill="#E0F2FE" stroke="#0284C7" stroke-width="1.5"/>
+  <text x="325" y="172" font-size="13" font-weight="700" fill="#075985">VNet: vnet-hardening-syed</text>
+
+  <!-- Subnet -->
+  <rect x="328" y="185" width="464" height="440" rx="8" fill="#FFFFFF" stroke="#0369A1" stroke-width="1.2"/>
+  <!-- NSG header -->
+  <rect x="328" y="185" width="464" height="44" rx="8" fill="#FEF3C7" stroke="#B45309" stroke-width="1.2"/>
+  <text x="560" y="204" text-anchor="middle" font-size="13" font-weight="700" fill="#78350F">Subnet + NSG (associated to subnet)</text>
+  <text x="560" y="221" text-anchor="middle" font-size="12" fill="#78350F">Inbound allow: SSH 22 · RDP 3389</text>
+
+  <!-- Linux VM -->
+  <rect x="345" y="245" width="212" height="360" rx="8" fill="#F0FDF4" stroke="#15803D" stroke-width="1.5"/>
+  <rect x="345" y="245" width="212" height="26" rx="8" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+  <text x="451" y="263" text-anchor="middle" font-size="11" fill="#14532D">Public IP · NIC</text>
+  <text x="451" y="295" text-anchor="middle" font-size="15" font-weight="700" fill="#14532D">Ubuntu 24.04 LTS</text>
+  <g font-size="12" fill="#166534">
+    <text x="360" y="322">• Standard_D2ds_v4</text>
+    <text x="360" y="346">• CIS-style custom_data</text>
+    <text x="360" y="370">• PermitRootLogin no</text>
+    <text x="360" y="394">• sshd_config mode 600</text>
+    <text x="360" y="418">• ssh.service (not socket)</text>
+    <text x="360" y="442">• appuser: sudo for</text>
+    <text x="372" y="460">systemctl status * NOEXEC</text>
+    <text x="360" y="484">• System-assigned identity</text>
+    <text x="360" y="508">• AzurePolicyforLinux</text>
+    <text x="372" y="526">guest config extension</text>
+  </g>
+
+  <!-- Windows VM -->
+  <rect x="565" y="245" width="212" height="360" rx="8" fill="#EFF6FF" stroke="#1D4ED8" stroke-width="1.5"/>
+  <rect x="565" y="245" width="212" height="26" rx="8" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="1.5"/>
+  <text x="671" y="263" text-anchor="middle" font-size="11" fill="#1E3A8A">Public IP · NIC</text>
+  <text x="671" y="295" text-anchor="middle" font-size="15" font-weight="700" fill="#1E3A8A">Windows Server 2022</text>
+  <g font-size="12" fill="#1E40AF">
+    <text x="580" y="322">• CIS L1 via PowerShell</text>
+    <text x="580" y="346">• Lockout: 5 tries / 15 min</text>
+    <text x="580" y="370">• Password: 14+ chars,</text>
+    <text x="592" y="388">history 24, max age 60</text>
+    <text x="580" y="412">• Guest account disabled</text>
+    <text x="580" y="436">• Firewall: all profiles</text>
+    <text x="580" y="460">• Audit: Logon, Account</text>
+    <text x="592" y="478">Lockout, Sensitive</text>
+    <text x="592" y="496">Privilege Use</text>
+    <text x="580" y="520">• Autoplay disabled</text>
+    <text x="580" y="544">• appuser: not in</text>
+    <text x="592" y="562">Administrators</text>
+  </g>
+
+  <!-- Azure Policy -->
+  <rect x="835" y="150" width="195" height="230" rx="10" fill="#F5F3FF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="932" y="178" text-anchor="middle" font-size="15" font-weight="700" fill="#4C1D95">Azure Policy</text>
+  <text x="932" y="198" text-anchor="middle" font-size="12" fill="#5B21B6">Guest Configuration</text>
+  <g font-size="12" fill="#5B21B6" text-anchor="middle">
+    <text x="932" y="232">Linux machines should</text>
+    <text x="932" y="250">meet requirements for the</text>
+    <text x="932" y="268">Azure compute security</text>
+    <text x="932" y="286">baseline (v2.3.1)</text>
+    <text x="932" y="322" font-weight="700">Scope: resource group</text>
+  </g>
+
+  <!-- Compliance results -->
+  <rect x="835" y="420" width="195" height="185" rx="10" fill="#FFFFFF" stroke="#6D28D9" stroke-width="1.5"/>
+  <text x="932" y="448" text-anchor="middle" font-size="15" font-weight="700" fill="#4C1D95">Compliance Result</text>
+  <text x="932" y="472" text-anchor="middle" font-size="12" fill="#334155">CIS 5.2.10 PermitRootLogin</text>
+  <rect x="852" y="488" width="161" height="40" rx="6" fill="#FEE2E2" stroke="#B91C1C"/>
+  <text x="932" y="505" text-anchor="middle" font-size="12" font-weight="700" fill="#991B1B">Break: NonCompliant</text>
+  <text x="932" y="520" text-anchor="middle" font-size="11" fill="#991B1B">PermitRootLogin yes</text>
+  <rect x="852" y="542" width="161" height="40" rx="6" fill="#DCFCE7" stroke="#15803D"/>
+  <text x="932" y="559" text-anchor="middle" font-size="12" font-weight="700" fill="#14532D">Fix: Compliant</text>
+  <text x="932" y="574" text-anchor="middle" font-size="11" fill="#14532D">PermitRootLogin no</text>
+
+  <!-- Arrows -->
+  <!-- Terraform apply -->
+  <line x1="230" y1="150" x2="288" y2="150" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="236" y="140" font-size="11" fill="#334155">terraform</text>
+  <text x="236" y="166" font-size="11" fill="#334155">apply</text>
+  <!-- Admin access -->
+  <path d="M130,215 L130,300 L326,300" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+  <text x="140" y="292" font-size="11" fill="#334155">SSH / RDP admin</text>
+  <!-- Internet attacks -->
+  <line x1="230" y1="420" x2="326" y2="420" stroke="#B91C1C" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <text x="238" y="410" font-size="11" fill="#B91C1C">22 from *</text>
+  <!-- Guest config audit -->
+  <path d="M451,605 L451,633 L822,633 L822,265 L833,265" fill="none" stroke="#6D28D9" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowPurple)"/>
+  <text x="600" y="649" font-size="11" fill="#6D28D9">guest configuration audit</text>
+  <!-- Policy to result -->
+  <line x1="932" y1="380" x2="932" y2="418" stroke="#6D28D9" stroke-width="2" marker-end="url(#arrowPurple)"/>
+  <text x="940" y="404" font-size="11" fill="#6D28D9">evaluates</text>
+
+  <!-- Legend -->
+  <g font-size="11" fill="#334155">
+    <line x1="295" y1="690" x2="325" y2="690" stroke="#6D28D9" stroke-width="2" stroke-dasharray="6 4"/>
+    <text x="332" y="694">guest configuration audit (Linux VM to Azure Policy)</text>
+    <line x1="660" y1="690" x2="690" y2="690" stroke="#B91C1C" stroke-width="2"/>
+    <text x="697" y="694">untrusted inbound traffic</text>
+  </g>
+</svg>
